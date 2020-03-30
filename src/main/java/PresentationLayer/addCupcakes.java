@@ -18,6 +18,8 @@ package PresentationLayer;
 import DBAccess.CupcakeInitializer;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,7 +29,8 @@ public class addCupcakes extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         try {
-            HttpSession session = request.getSession(true);
+            HttpSession session = request.getSession();
+
             int topping_id = Integer.parseInt(request.getParameter("topping"));
             int bottom_id = Integer.parseInt(request.getParameter("bottom"));
 

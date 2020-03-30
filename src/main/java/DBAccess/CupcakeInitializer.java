@@ -45,6 +45,8 @@ public class CupcakeInitializer {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (LoginSampleException e) {
+                e.printStackTrace();
             }
 
         }
@@ -72,6 +74,8 @@ public class CupcakeInitializer {
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (LoginSampleException e) {
                 e.printStackTrace();
             }
 

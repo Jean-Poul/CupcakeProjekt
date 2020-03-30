@@ -1,5 +1,7 @@
 package DBAccess;
 
+import FunctionLayer.LoginSampleException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,18 +15,23 @@ public class Connector {
     private static String USERNAME;
     private static String PASSWORD;
 
-    private static Connection singleton;
+    private static Connection singleton = null;
 
     public static void setConnection( Connection con ) {
         singleton = con;
     }
 
-    public static Connection connection() throws ClassNotFoundException, SQLException {
-        if ( singleton == null ) {
-            setDBCredentials();
-            Class.forName( "com.mysql.cj.jdbc.Driver" );
-            singleton = DriverManager.getConnection( URL, USERNAME, PASSWORD );
-        }
+    public static Connection connection() throws ClassNotFoundException, SQLException, LoginSampleException {
+       try {
+           if (singleton == null || singleton.isClosed()) {
+               setDBCredentials();
+               Class.forName("com.mysql.cj.jdbc.Driver");
+               singleton = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+           }
+       } catch (ClassNotFoundException | SQLException e) {
+           String msg = "Kunne ikke oprette forbindelse til databasen.";
+            throw new LoginSampleException(msg);
+       }
         return singleton;
     }
 
@@ -42,7 +49,6 @@ public class Connector {
             URL = "jdbc:mysql://localhost:3306/cupcakedb";
             USERNAME = "root";
             PASSWORD = "DatamatikerJP0110";
-
         }
 
     }

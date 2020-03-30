@@ -18,15 +18,20 @@ import javax.servlet.http.HttpSession;
 public class Payment extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("userid");
-        LogicFacade.createOrder(id);
-        double getCredit = LogicFacade.showCredit(id);
-        session.setAttribute("credit", getCredit);
+        try {
+            HttpSession session = request.getSession();
+            int id = (int) session.getAttribute("userid");
+            LogicFacade.createOrder(id);
+            double getCredit = LogicFacade.showCredit(id);
+            session.setAttribute("credit", getCredit);
 
-        if (getCredit <= 0) {
+            if (getCredit <= 0) {
+                throw new LoginSampleException("Du har ikke nok penge på din konto");
+            }
+        } catch (NullPointerException ex) {
             throw new LoginSampleException("Du har ikke nok penge på din konto");
         }
         return "payment";
     }
 }
+
