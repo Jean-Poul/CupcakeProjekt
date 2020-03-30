@@ -1,0 +1,61 @@
+-- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: cupcakedb
+-- ------------------------------------------------------
+-- Server version	8.0.18
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `orderline`
+--
+
+DROP TABLE IF EXISTS `orderline`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orderline` (
+  `orderline_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '0',
+  `sum` int(11) NOT NULL DEFAULT '0',
+  `topping_id` int(11) NOT NULL,
+  `bottom_id` int(11) NOT NULL,
+  PRIMARY KEY (`orderline_id`),
+  KEY `fk_orderline_order_idx` (`order_id`),
+  KEY `fk_orderline_topping_idx` (`topping_id`),
+  KEY `fk_orderline_bottom_idx` (`bottom_id`),
+  CONSTRAINT `fk_orderline_bottom` FOREIGN KEY (`bottom_id`) REFERENCES `bottom` (`bottom_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_orderline_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_orderline_topping` FOREIGN KEY (`topping_id`) REFERENCES `topping` (`topping_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orderline`
+--
+
+LOCK TABLES `orderline` WRITE;
+/*!40000 ALTER TABLE `orderline` DISABLE KEYS */;
+INSERT INTO `orderline` VALUES (1,10,3,0,1,2),(2,1,4,0,2,1),(3,2,5,0,2,3),(4,3,5,0,3,2),(5,4,2,0,5,5),(6,5,1,0,4,4),(7,6,3,0,5,4),(8,7,4,0,3,2),(9,8,5,0,4,2),(10,9,6,0,1,2),(12,53,2,20,1,1),(13,54,1,10,1,1),(14,54,2,20,1,3),(15,54,3,33,1,5),(16,54,1,10,3,1),(17,55,1,10,1,1),(18,55,2,20,1,3),(19,55,3,33,1,5),(20,55,1,10,3,1),(21,57,2,20,1,1),(23,58,5,55,1,5),(24,59,3,33,1,4),(25,60,1,11,1,4),(28,66,5,55,3,5),(29,74,1,10,1,1),(30,75,1,10,1,1),(31,75,1,10,1,2),(32,75,1,10,1,3),(33,76,1,10,2,1),(34,76,1,10,3,3),(36,77,1,10,1,1),(37,77,3,30,1,1),(38,78,1,10,1,2),(39,78,3,30,1,2),(40,79,1,10,1,3),(41,79,3,30,1,3),(42,80,1,11,1,4),(43,80,3,33,1,4),(44,81,1,11,1,5),(45,81,3,33,1,5),(55,91,1,10,1,1),(56,91,2,20,1,2),(57,91,3,30,2,2),(58,91,3,33,4,2),(60,93,1,10,2,2),(61,94,32,320,2,2),(62,95,3,30,1,1),(63,95,3,30,2,2),(64,95,3,30,3,3),(65,95,3,36,4,4),(66,95,3,39,5,5),(75,104,3,42,9,1),(76,105,3,39,8,1),(77,106,3,39,5,5),(78,106,2,26,8,1),(79,107,3,39,5,5),(80,107,2,26,8,1),(81,109,3,42,6,5),(82,109,2,22,4,1),(83,109,3,33,4,1),(84,110,2,20,2,1),(85,111,2,20,2,1),(86,112,3,30,3,1),(87,113,3,33,4,3),(88,114,3,30,1,1),(89,115,3,33,5,1),(90,116,3,30,1,1),(91,117,3,30,1,1),(92,118,2,22,4,1),(93,118,3,33,4,1),(94,118,2,24,4,4),(95,118,3,30,3,3),(96,118,32,384,5,4),(97,118,32,320,3,3),(98,119,32,352,5,1),(99,120,32,320,3,2),(100,121,32,416,5,5),(101,122,32,352,4,3),(102,123,22,264,5,4),(103,124,32,384,5,4),(104,125,33,330,3,3),(105,126,32,320,1,1),(106,127,32,320,1,1),(107,128,32,320,1,1),(108,129,32,320,1,1),(109,130,32,320,1,1),(110,131,32,320,1,1),(111,132,32,320,1,1),(112,133,22,220,1,1),(113,134,23,230,1,1),(114,135,11,110,1,1),(115,136,32,352,4,1),(116,137,32,384,6,1),(117,138,32,320,3,1),(118,139,32,352,4,1),(119,140,32,352,4,1);
+/*!40000 ALTER TABLE `orderline` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-03-25 11:14:29
